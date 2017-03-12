@@ -4,12 +4,111 @@
 <head>
     <meta charset="utf-8">
     <title>coffeerun</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootst
+rap/3.3.6/css/bootstrap.min.css">
 </head>
 
-<body>
+<body class="container">
+    <header>
+        <h1>CoffeeRun</h1>
+    </header>
+    <section>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form data-coffee-order="form">
+                    <div class="form-group">
+                        <label for="coffeeOrder">Coffee Order</label>
+                        <input class="form-control" name="coffee" id="coffeeOrder" autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailInput">Email</label>
+                        <input class="form-control" type="email" name="emailAddress" id="emailInput" value="" placeholder="dr@who.com">
+                    </div>
+                    <div class="radio">
+                        <label>
+                        <input type="radio" name="size" value="short">Short</label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                          <input type="radio" name="size" value="tall" checked>Tall</label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="size" value="grande">Grande</label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="size" value="coffee-zilla">Coffee-zilla</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="flavorShot">Flavor Shot</label>
+                        <select id="flavorShot" class="form-control" name="flavor">
+                          <option value="">None</option>
+                          <option value="caramel">Caramel</option>
+                          <option value="almond">Almond</option>
+                          <option value="mocha">Mocha</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="strengthLevel">Caffeine Rating</label>
+                        <input name="strength" id="strengthLevel" type="range" value="30">
+                        <div id="coffee_strength"></div>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="reset" class="btn btn-default">Reset</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" charset="utf-8"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="scripts/formhandler.js" charset="utf-8"></script>
+    <script src="scripts/sliderhandler.js" charset="utf-8"></script>
     <script src="scripts/datastore.js" charset="utf-8"></script>
     <script src="scripts/truck.js" charset="utf-8"></script>
     <script src="scripts/main.js" charset="utf-8"></script>
+
+    <div class="container">
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Superpower List</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <div class="radio">
+                                <label>
+                            <input type="radio" name="power" value="strength">Super Strength</label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                              <input type="radio" name="power" value="invisibility" checked>Invisibility</label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                <input type="radio" name="power" value="speed">Speed</label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                <input type="radio" name="power" value="flight">Flight</label>
+                            </div>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                    <button type="submit_power" class="btn btn-default">Submit</button>
+                    <button type="reset_power" class="btn btn-default">Reset</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 </body>
+
 
 </html>
