@@ -2,6 +2,7 @@
     'use strict';
     var App = window.App || {};
     var $ = window.jQuery;
+    var achievement = [];
 
     function FormHandler(selector) {
         if (!selector) {
@@ -19,16 +20,58 @@
             event.preventDefault();
 
             var data = {};
+            var power;
+            var add_power = document.getElementById('add_power');
             $(this).serializeArray().forEach(function(item) {
                 data[item.name] = item.value;
                 console.log(item.name + ' is ' + item.value);
             });
 
-            if (data['size'] === 'coffee-zilla' && data['flavor']) {
+            if (achievement.indexOf(data['emailAddress']) != -1) {
                 $('#myModal').modal('show');
-                $('#myModal').on('hide.bs.modal', function() {
-                    data['power'] = $('#myModal input:radio:checked').val();
+                $('#submit_power').click(function() {
+                    power = $('#myModal input:radio:checked').val();
+                    if (power) {
+                        data['power'] = power;
+                        $('#myModal').modal('hide');
+                        $('#add_power_modal').modal('show');
+
+                        add_power.innerHTML = 'We have added ' + power + ' to your coffee.';
+
+                    }
                 });
+                //$('#myModal').modal('hide');
+
+
+                //  $('#add_power').innerHTML = 'Nothing was added to your coffee.';
+
+
+            } else if (data['size'] === 'coffee-zilla' && data['flavor']) {
+                achievement.push(data['emailAddress']);
+                $('#achievement').modal('show');
+                $('#achievement_choice').click(function() {
+                    var option = $('#achievement input:radio:checked').val();
+                    console.log(option);
+                    if (option === 'yes') {
+                        $('#myModal').modal('show');
+                        $('#submit_power').click(function() {
+                            power = $('#myModal input:radio:checked').val();
+                            if (power) {
+                                data['power'] = power;
+                                $('#myModal').modal('hide');
+                                $('#add_power_modal').modal('show');
+
+                                add_power.innerHTML = 'We have added ' + power + ' to your coffee.';
+
+                            }
+                        });
+                        $('#achievement').modal('hide');
+
+                    } else {
+                        $('#achievement').modal('hide');
+                    }
+                });
+
             }
 
             console.log(data);
