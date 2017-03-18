@@ -28,37 +28,33 @@
             });
 
             if (achievement.indexOf(data['emailAddress']) != -1) {
-                $('#myModal').modal('show');
+                $('#power_list').modal('show');
                 $('#submit_power').click(function() {
-                    power = $('#myModal input:radio:checked').val();
+                    power = $('#power_list input:radio:checked').val();
                     if (power) {
                         data['power'] = power;
-                        $('#myModal').modal('hide');
+                        $('#power_list').modal('hide');
                         $('#add_power_modal').modal('show');
 
                         add_power.innerHTML = 'We have added ' + power + ' to your coffee.';
 
                     }
                 });
-                //$('#myModal').modal('hide');
 
-
-                //  $('#add_power').innerHTML = 'Nothing was added to your coffee.';
-
-
-            } else if (data['size'] === 'coffee-zilla' && data['flavor']) {
+            } else if (data['size'] === 'coffee-zilla' && data['flavor'] && data['strength'] === '100') {
                 achievement.push(data['emailAddress']);
+                console.log(achievement);
                 $('#achievement').modal('show');
                 $('#achievement_choice').click(function() {
                     var option = $('#achievement input:radio:checked').val();
                     console.log(option);
                     if (option === 'yes') {
-                        $('#myModal').modal('show');
+                        $('#power_list').modal('show');
                         $('#submit_power').click(function() {
-                            power = $('#myModal input:radio:checked').val();
+                            power = $('#power_list input:radio:checked').val();
                             if (power) {
                                 data['power'] = power;
-                                $('#myModal').modal('hide');
+                                $('#power_list').modal('hide');
                                 $('#add_power_modal').modal('show');
 
                                 add_power.innerHTML = 'We have added ' + power + ' to your coffee.';
@@ -79,6 +75,54 @@
             this.reset();
             this.elements[0].focus();
         });
+    };
+
+    FormHandler.prototype.addInputHandler = function(fn) {
+        console.log('Setting input handler for form');
+        this.$formElement.on('input', '[name="emailAddress"]', function(event) {
+            var emailAddress = event.target.value;
+            var message = '';
+            if (fn(emailAddress)) {
+                event.target.setCustomValidity('');
+            } else {
+                message = emailAddress + ' is not an authorized email address!';
+                event.target.setCustomValidity(message);
+            }
+        });
+    };
+
+    FormHandler.prototype.addDecafHandler = function(fn) {
+        var order;
+        var decaf;
+        var message = '';
+        this.$formElement.on('input', '[name="coffee"]', function(event) {
+            order = event.target.value;
+            console.log(order);
+            if (order && decaf) {
+                if (fn(order, decaf)) {
+                    event.target.setCustomValidity('');
+                } else {
+                    message = 'Coffee with decaf cannot have a caffeine rating higher than 20!';
+                    event.target.setCustomValidity(message);
+                }
+            }
+        });
+
+        this.$formElement.on('input', '[name="strength"]', function(event) {
+            decaf = event.target.value;
+            console.log(decaf);
+            if (order && decaf) {
+                if (fn(order, decaf)) {
+                    event.target.setCustomValidity('');
+                    console.log('true');
+                } else {
+                    message = 'Coffee with decaf cannot have a caffeine rating higher than 20!';
+                    event.target.setCustomValidity(message);
+                }
+            }
+        });
+
+
     };
 
     App.FormHandler = FormHandler;

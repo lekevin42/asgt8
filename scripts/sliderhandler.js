@@ -21,9 +21,14 @@
 
         this.setColor();
 
-        $(this.caffeine_level).change(function() {
+        $(this.caffeine_level).on('input change', function() {
             this.coffee_level.innerHTML = this.caffeine_level.val();
             this.setColor();
+        }.bind(this));
+
+        $('#reset_submit').click(function() {
+            this.coffee_level.innerHTML = 30;
+            this.coffee_level.style.color = 'green';
         }.bind(this));
     };
 
