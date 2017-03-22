@@ -13,6 +13,7 @@
         }
         this.coffee_level = document.getElementById('coffee_strength');
         this.caffeine_level = $('#strengthLevel');
+        console.log(this.caffeine_level.val());
         this.coffee_level.innerHTML = this.caffeine_level.val();
     }
 

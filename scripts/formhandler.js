@@ -95,21 +95,11 @@
         var order;
         var decaf;
         var message = '';
-        this.$formElement.on('input', '[name="coffee"]', function(event) {
-            order = event.target.value;
-            console.log(order);
-            if (order && decaf) {
-                if (fn(order, decaf)) {
-                    event.target.setCustomValidity('');
-                } else {
-                    message = 'Coffee with decaf cannot have a caffeine rating higher than 20!';
-                    event.target.setCustomValidity(message);
-                }
-            }
-        });
 
         this.$formElement.on('input', '[name="strength"]', function(event) {
+            order = $('#coffeeOrder').val();
             decaf = event.target.value;
+            console.log(order);
             console.log(decaf);
             if (order && decaf) {
                 if (fn(order, decaf)) {
