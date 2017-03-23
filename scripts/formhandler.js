@@ -96,14 +96,33 @@
         var decaf;
         var message = '';
 
-        this.$formElement.on('input', '[name="strength"]', function(event) {
-            order = $('#coffeeOrder').val();
-            decaf = event.target.value;
+        this.$formElement.on('input', '[name="coffee"]', function(event) {
+            order = event.target.value;
+            decaf = $('#strengthLevel').val();
+            var decafEvent = document.getElementById('strengthLevel');
             console.log(order);
             console.log(decaf);
             if (order && decaf) {
                 if (fn(order, decaf)) {
                     event.target.setCustomValidity('');
+                    decafEvent.setCustomValidity('');
+                } else {
+                    message = 'Coffee with decaf cannot have a caffeine rating higher than 20!';
+                    event.target.setCustomValidity(message);
+                }
+            }
+        });
+
+        this.$formElement.on('input', '[name="strength"]', function(event) {
+            order = $('#coffeeOrder').val();
+            decaf = event.target.value;
+            var orderName = document.getElementById('coffeeOrder');
+            console.log(order);
+            console.log(decaf);
+            if (order && decaf) {
+                if (fn(order, decaf)) {
+                    event.target.setCustomValidity('');
+                    orderName.setCustomValidity('');
                     console.log('true');
                 } else {
                     message = 'Coffee with decaf cannot have a caffeine rating higher than 20!';
