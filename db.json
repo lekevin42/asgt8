@@ -1,0 +1,20 @@
+{
+  "coffeeorders": [
+    {
+      "coffee": "chocolate decaf",
+      "emailAddress": "q@bignerdranch.com",
+      "size": "grande",
+      "flavor": "almond",
+      "strength": "12",
+      "id": "r1n7KF43g"
+    },
+    {
+      "coffee": "chocolatee",
+      "emailAddress": "testing@bignerdranch.com",
+      "size": "tall",
+      "flavor": "",
+      "strength": "30",
+      "id": "HkZ6tK42e"
+    }
+  ]
+}

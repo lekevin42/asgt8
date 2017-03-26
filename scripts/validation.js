@@ -1,10 +1,20 @@
 (function(window) {
     'use strict';
     var App = window.App || {};
+    var check;
+
+    function checkEmail(serverResponse) {
+        if (serverResponse) {
+            check = true;
+        }
+        else{check = false;}
+        console.log(check);
+    }
 
     var Validation = {
-        isCompanyEmail: function(email) {
-            return /.@bignerdranch\.com$/.test(email);
+        isCompanyEmail: function(email, remoteDS) {
+            remoteDS.get(email, checkEmail);
+            return /.@bignerdranch\.com$/.test(email) && check;
         },
 
         isDecaf: function(s_val, caffeine_level) {
@@ -12,6 +22,12 @@
                 return false;
             }
             return true;
+        },
+
+        isDuplicateEmail: function (email, remoteDS) {
+            remoteDS.get(email, checkEmail);
+
+            return check;
         }
     };
 
