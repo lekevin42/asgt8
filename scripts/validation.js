@@ -6,15 +6,17 @@
     function checkEmail(serverResponse) {
         if (serverResponse) {
             check = true;
+        } else {
+            check = false;
         }
-        else{check = false;}
         console.log(check);
     }
 
     var Validation = {
-        isCompanyEmail: function(email, remoteDS) {
-            remoteDS.get(email, checkEmail);
-            return /.@bignerdranch\.com$/.test(email) && check;
+        isCompanyEmail: function(email) {
+
+            return /.@bignerdranch\.com$/.test(email);
+
         },
 
         isDecaf: function(s_val, caffeine_level) {
@@ -24,7 +26,7 @@
             return true;
         },
 
-        isDuplicateEmail: function (email, remoteDS) {
+        isDuplicateEmail: function(email, remoteDS) {
             remoteDS.get(email, checkEmail);
 
             return check;

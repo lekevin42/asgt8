@@ -72,10 +72,10 @@
 
             console.log(data);
             fn(data)
-            .then(function() {
-                this.reset();
-                this.elements[0].focus();
-            }.bind(this));
+                .then(function() {
+                    this.reset();
+                    this.elements[0].focus();
+                }.bind(this));
         });
     };
 
@@ -84,12 +84,25 @@
         this.$formElement.on('input', '[name="emailAddress"]', function(event) {
             var emailAddress = event.target.value;
             var message = '';
-            if (fn(emailAddress, remoteDS)) {
-                event.target.setCustomValidity('');
-            } else {
-                message = emailAddress + ' is not an authorized email address or already exists!';
-                event.target.setCustomValidity(message);
-            }
+
+            remoteDS.getAll().then(function(data) {
+                var i;
+                var taken = false;
+                for (i = 0; i < data.length; i++) {
+                    if (data[i]['emailAddress'] === emailAddress) {
+                        taken = true;
+                        break;
+                    }
+                }
+
+                if (fn(emailAddress) && !taken) {
+                    event.target.setCustomValidity('');
+                } else {
+                    message = emailAddress + ' is not an authorized email address or already exists!';
+                    event.target.setCustomValidity(message);
+                }
+            });
+
         });
     };
 
@@ -102,8 +115,6 @@
             order = event.target.value;
             decaf = $('#strengthLevel').val();
             var decafEvent = document.getElementById('strengthLevel');
-            console.log(order);
-            console.log(decaf);
             if (order && decaf) {
                 if (fn(order, decaf)) {
                     event.target.setCustomValidity('');
@@ -134,21 +145,21 @@
         });
     };
 
-/*    FormHandler.prototype.addDuplicateEmailHandler = function(fn, remoteDS) {
-        console.log('Setting duplicate email handler for form');
-        this.$formElement.on('input', '[name="emailAddress"]', function(event) {
-            var emailAddress = event.target.value;
-            var message = '';
-            console.log(emailAddress);
-            if (fn(emailAddress, remoteDS)) {
-                event.target.setCustomValidity('');
-            } else {
-                message = emailAddress + ' already exists!';
-                event.target.setCustomValidity(message);
-            }
-        });
-    };
-*/
+    /*    FormHandler.prototype.addDuplicateEmailHandler = function(fn, remoteDS) {
+            console.log('Setting duplicate email handler for form');
+            this.$formElement.on('input', '[name="emailAddress"]', function(event) {
+                var emailAddress = event.target.value;
+                var message = '';
+                console.log(emailAddress);
+                if (fn(emailAddress, remoteDS)) {
+                    event.target.setCustomValidity('');
+                } else {
+                    message = emailAddress + ' already exists!';
+                    event.target.setCustomValidity(message);
+                }
+            });
+        };
+    */
     App.FormHandler = FormHandler;
     window.App = App;
 
