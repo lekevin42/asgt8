@@ -145,21 +145,6 @@
         });
     };
 
-    /*    FormHandler.prototype.addDuplicateEmailHandler = function(fn, remoteDS) {
-            console.log('Setting duplicate email handler for form');
-            this.$formElement.on('input', '[name="emailAddress"]', function(event) {
-                var emailAddress = event.target.value;
-                var message = '';
-                console.log(emailAddress);
-                if (fn(emailAddress, remoteDS)) {
-                    event.target.setCustomValidity('');
-                } else {
-                    message = emailAddress + ' already exists!';
-                    event.target.setCustomValidity(message);
-                }
-            });
-        };
-    */
     App.FormHandler = FormHandler;
     window.App = App;
 
